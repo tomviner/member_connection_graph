@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+require 'member_connection_graph'
+
+require 'csv'
+
+
+require 'graphviz'
+
+# Create a new graph
+g = GraphViz.new( :G, :type => :digraph )
+
+@csv = File.expand_path ARGV[0]
+
+projects = {}
+
+CSV.foreach(@csv, headers: :first_row) do |row|
+  subject = g.add_nodes(row["AssignedMember"])
+  object  = g.add_nodes(row["ProjectName"])
+
+  g.add_edges(subject,object)
+
+  projects[row["ProjectName"]] ||= []
+  projects[row["ProjectName"]] << { name:row["AssignedMember"], weight:row["weight"] }
+
+end
+
+p projects
+
+
+relation = {}
+
+projects.each do |name,members|
+ p name
+ p members
+  members.each do |member|
+p    member[:name]
+p member[:weight]
+    members.each do |target|
+      p target[:name]
+      next if member[:name] == target[:name]
+
+      relation[member[:name]] ||= {}
+      relation[member[:name]][target[:name]] ||= 0.0
+      relation[member[:name]][target[:name]] += member[:weight].to_f
+      #relation[member[:name]][target[:name]] += member[:weight].to_f / members.length
+
+      relation[target[:name]] ||= {}
+      relation[target[:name]][member[:name]] ||= 0.0
+      relation[target[:name]][member[:name]] += member[:weight].to_f
+      #relation[target[:name]][member[:name]] += member[:weight].to_f / members.length
+
+      p "#{member[:name]} => #{target[:name]} : #{member[:weight]}"
+    end
+p '- - - -'
+  end
+p '-------'
+  
+end
+g.output( :png => "project_map.png" )
+p relation
+
+
+g2 = GraphViz.new( :G, :type => :digraph )
+relation.each do |subject,objects|
+  subject_node = g2.add_nodes(subject)
+  objects.each do |object,relation_value|
+    object_node  = g2.add_nodes(object)
+    array = []
+    g2.each_edge do |edge|
+      array << [ edge.node_one.gsub(/^"(.+)"$/, '\1'), edge.node_two.gsub(/^"(.+)"$/, '\1')].sort.join('-')
+    end
+    next if array.include? [subject,object].sort.join('-')
+    g2.add_edges(subject_node,object_node, label:relation_value, dir:'none', penwidth: relation_value * 2)
+  end
+end
+g2.output( :png => "relation.png" )
+
+
