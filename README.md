@@ -1,29 +1,35 @@
 # MemberConnectionGraph
 
-TODO: Write a gem description
+複数プロジェクトに動的にメンバーをアサインする運用携帯を取っている組織向けの、メンバー毎の関連度可視化ツールです
 
 ## Installation
 
-Add this line to your application's Gemfile:
+    $ git clone https://github.com/tk-hamaguchi/member_connection_graph.git
+    $ cd member_connection_graph
+    $ bundle install
 
-    gem 'member_connection_graph'
+for Mac
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install member_connection_graph
+    $ brew install graphviz
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ bundle exec ruby bin/member_connection_graph /path/to/csvfile
 
-## Contributing
+csvfile
 
-1. Fork it ( http://github.com/<my-github-username>/member_connection_graph/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    ProjectName,AssignedMember,weight
+    ProjectA,Mr.X,0.5
+    ProjectA,Mr.Y,0.8
+    ProjectB,Mr.X,0.3
+    ProjectB,Ms.Z,0.8
+    ProjectC,Mr.X,0.2
+    ProjectC,Mr.Y,0.2
+    ProjectC,Ms.Z,0.2
+
+output
+
+    relation.png
+
+
+

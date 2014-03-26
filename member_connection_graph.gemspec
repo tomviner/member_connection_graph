@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = MemberConnectionGraph::VERSION
   spec.authors       = ["Takahiro HAMAGUCHI"]
   spec.email         = ["tk.hamaguchi@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Graph generator for member's connection}
+  spec.description   = %q{Graph generator for member's connection.}
+  spec.homepage      = "https://github.com/tk-hamaguchi/member_connection_graph"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -18,8 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "ruby-graphviz"
+  spec.add_runtime_dependency 'ruby-graphviz', '~> 1.0', '>= 1.0.9'
 
   spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
 end
