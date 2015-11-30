@@ -1,8 +1,8 @@
 ProjectName,AssignedMember,weight
-ProjectA,Mr.X,0.5
-ProjectA,Mr.Y,0.8
-ProjectB,Mr.X,0.3
-ProjectB,Ms.Z,0.8
-ProjectC,Mr.X,0.2
-ProjectC,Mr.Y,0.2
-ProjectC,Ms.Z,0.2
+ProjectA,Mr.X2,0.5
+ProjectA,Mr.Y2,0.8
+ProjectB,Mr.X2,0.3
+ProjectB,Ms.Z2,0.8
+ProjectC,Mr.X2,0.2
+ProjectC,Mr.Y2,0.2
+ProjectC,Ms.Z2,0.2
